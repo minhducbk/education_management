@@ -12,4 +12,17 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap/dist/css/bootstrap
  */
+
+ .container {
+  margin-top: -20px;
+}
+
+.form-control {
+  padding: 6px 6px 6px 6px !important;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
