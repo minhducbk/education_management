@@ -4,6 +4,10 @@ class TestsController < ApplicationController
   def create
   end
 
+  def index
+    binding.pry
+  end
+
   def show
   end
 

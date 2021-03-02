@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   apipie
-  resource :tests, only: [:create, :show, :update, :delete]
-  resource :users, only: [:create, :show, :update, :delete]
   
   namespace :mobile_api, path: 'api', defaults: { format: :json } do
     resources :users do
@@ -11,6 +9,9 @@ Rails.application.routes.draw do
       post :save_test_result, on: :member
     end
   end
+
+  resources :tests
+  resources :users
   
   
   devise_for :users, controllers: {

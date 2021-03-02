@@ -27,7 +27,6 @@ class SessionsController < Devise::SessionsController
       flash[:alert] = 'Access Denied.'
       redirect_to new_user_session_path
     end
-    super
   end
 
  
@@ -41,6 +40,10 @@ class SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:role, :email, :password, :password_confirmation) }
   end
 end

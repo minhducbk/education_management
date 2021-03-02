@@ -4,17 +4,9 @@ class ApplicationController < ActionController::Base
   # CanCan - pass params in to Ability
   def current_ability
     if current_user.is_a? User
-      @current_ability ||= Abilities::Ability.new(current_user, params)
+      @current_ability ||= Abilities::Ability.new(current_user)
     end
   end
 
   protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :password, :password_confirmation) }
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
-  end
 end
