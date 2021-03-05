@@ -13,6 +13,7 @@ import "regenerator-runtime/runtime";
 
 //= require angular
 //= require angular-resource
+//= require angular-router
 //= require angular-devise
 //= require_tree .
 

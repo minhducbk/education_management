@@ -6,12 +6,22 @@ class UsersController < ApplicationController
 
   def show
     p "7777777777777"
-    binding.pry
+  end
+
+  def edit
+    @user = User.find_by(id: params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @user }
+    end
   end
 
   def index
-    binding.pry
-    users
+    @users = User.accessible_by(current_ability)
+    respond_to do |format|
+      format.html
+      format.json { render json: @users }
+    end
   end
 
   def update
