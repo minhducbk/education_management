@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
-import { EditUserButton } from '../buttons/edit.user.btn';
+import { DeleteUserButton } from '../buttons/delete.user.btn';
 import { User } from '../../models/user';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'user-index-section',
-  template: `<h1>Users#index ANGULAR</h1>
+  template: `
+  <h1>Users#index ANGULAR</h1>
   <ul>
     <tr *ngFor="let user of users">
-      <td>{{user.email}} <edit-user-btn id="{{user.id}}"></edit-user-btn></td>
+      <td>
+        <p> {{user.email}} </p>  
+        <a routerLink="/users/{{user.id}}/edit">
+          <span class="btn btn-default">Edit</span> 
+        </a>
+        <delete-user-btn userid="1111">{{user.id}}</delete-user-btn>
+      </td>
     </tr>
   </ul>
-  <p>Find me in app/views/users/index.html.erb</p>
+
   `
 })
-export class UserIndexSection {
+export class IndexUserSection {
   users;
 
   constructor(private http: HttpClient) {
-    http.get('http://localhost:3000/users.json')
+    http.get('users.json')
       .subscribe(res => this.users = res);
   }
 }

@@ -1,37 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
+import { createCustomElement } from '@angular/elements';
 
-import { AppComponent } from './components/app.component';
-import { UserIndexSection } from './components/sections/index.users.section';
+import { AppComponent } from './app.component';
+import { IndexUserSection } from './components/sections/index.users.section';
 import { EditUserSection } from './components/sections/edit.users.section';
-import { EditUserButton } from './components/buttons/edit.user.btn';
-import { HttpClientModule, /* other http imports */ } from "@angular/common/http";
-import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
+import { DeleteUserButton } from './components/buttons/delete.user.btn';
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewUserSection } from './components/sections/new.users.section';
+// import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 
 const appRoutes: Routes = [
-  { path: 'users/:id/edit', component: EditUserSection, pathMatch: 'full' },
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: 'users', component: UserIndexSection }
+  { path: 'users/:id/edit', component: EditUserSection },
+  { path: 'users', component: IndexUserSection },
+  { path: 'users/new', component: NewUserSection },
+  { path: '', redirectTo: 'users', pathMatch: 'full' },
 ];
 
  @NgModule({
   declarations: [
-    AppComponent, UserIndexSection, EditUserSection, EditUserButton
+    AppComponent, 
+    IndexUserSection, 
+    EditUserSection,
+    NewUserSection, 
+    DeleteUserButton
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes
-    )
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
-  bootstrap: [UserIndexSection],
-  entryComponents: [AppComponent, UserIndexSection],
+  bootstrap: [AppComponent],
+  entryComponents: [AppComponent, DeleteUserButton],
   exports: [
     RouterModule
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    const deleteUserButton = createCustomElement(DeleteUserButton, { injector });
+    customElements.define('delete-user-btn', deleteUserButton);
+  }
+  ngDoBootstrap() {}
+}

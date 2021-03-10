@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    p "edit 5555555"
     @user = User.find_by(id: params[:id])
     respond_to do |format|
       format.html

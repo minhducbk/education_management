@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'delete-user-btn',
   template: `
-  <button type="button" class="btn btn-default" onClickMe="redirect('/users/{{id}}')">Delete</button>`
+  <button type="submit" class="btn btn-info" (click)="deleteUser()">Delete</button>
+  `
 })
 export class DeleteUserButton {
-  id = '';
+  @Input() userid: string;
 
-  onClickMe(id :any) {
-    this.id = id;
+  constructor (){
+    // console.log("111 ", this.userId);
+  } 
+
+  deleteUser() {
+    console.log("2333", this.userid);
   }
 }
