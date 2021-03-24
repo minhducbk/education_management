@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       @current_ability ||= Abilities::Ability.new(current_user)
     else
       binding.pry
-      render json: {}, status: 403
+      render json: {}, status: :bad_request
     end
   end
 

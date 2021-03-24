@@ -13,6 +13,7 @@ class SessionsController < Devise::SessionsController
   
   def create
     p "999999999999999999"
+    binding.pry
     self.resource = warden.authenticate!(auth_options)
 
     if resource.is_a? Teacher
@@ -20,7 +21,6 @@ class SessionsController < Devise::SessionsController
       sign_in(resource_name, resource)
       resource.user_sessions.create!
       yield resource if block_given?
-      binding.pry
       redirect_to users_path
     else
       warden.logout(:user)

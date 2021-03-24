@@ -5,8 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'user-index-section',
-  template: `
-  <h1>Users#index ANGULAR</h1>
+  template: `<h1>Users#index ANGULAR</h1>
   <ul>
     <tr *ngFor="let user of users">
       <td>
@@ -14,7 +13,9 @@ import { HttpClient } from '@angular/common/http';
         <a routerLink="/users/{{user.id}}/edit">
           <span class="btn btn-default">Edit</span> 
         </a>
-        <delete-user-btn userid="1111">{{user.id}}</delete-user-btn>
+        <p> {{user.id}} </p>
+        <delete-user-btn user="user">
+        </delete-user-btn>
       </td>
     </tr>
   </ul>
@@ -22,10 +23,12 @@ import { HttpClient } from '@angular/common/http';
   `
 })
 export class IndexUserSection {
+  user;
   users;
 
   constructor(private http: HttpClient) {
     http.get('users.json')
-      .subscribe(res => this.users = res);
+      .subscribe(res => {this.user = res[0]; this.users = res});
+      // deletebtn.useremail = users[0].email;
   }
 }
