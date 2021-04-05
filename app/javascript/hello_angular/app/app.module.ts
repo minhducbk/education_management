@@ -7,7 +7,7 @@ import { createCustomElement } from '@angular/elements';
 import { AppComponent } from './app.component';
 import { IndexUserSection } from './components/sections/index.users.section';
 import { EditUserSection } from './components/sections/edit.users.section';
-import { DeleteUserButton } from './components/buttons/delete.user.btn';
+import { UserDeleteBtn } from './components/buttons/delete.user.btn';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewUserSection } from './components/sections/new.users.section';
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     IndexUserSection, 
     EditUserSection,
     NewUserSection, 
-    DeleteUserButton
+    UserDeleteBtn
   ],
   imports: [
     BrowserModule,
@@ -37,15 +37,11 @@ const appRoutes: Routes = [
   ],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   bootstrap: [AppComponent],
-  entryComponents: [AppComponent, DeleteUserButton],
+  entryComponents: [AppComponent],
   exports: [
     RouterModule
   ]
 })
 export class AppModule {
-  constructor(private injector: Injector) {
-    const deleteUserButton = createCustomElement(DeleteUserButton, { injector });
-    customElements.define('delete-user-btn', deleteUserButton);
-  }
   ngDoBootstrap() {}
 }

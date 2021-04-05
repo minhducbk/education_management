@@ -1,34 +1,36 @@
 import { Component } from '@angular/core';
-import { DeleteUserButton } from '../buttons/delete.user.btn';
-import { User } from '../../models/user';
+import { UserDeleteBtn } from '../buttons/delete.user.btn';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'user-index-section',
+  selector: 'userindexsection',
   template: `<h1>Users#index ANGULAR</h1>
-  <ul>
-    <tr *ngFor="let user of users">
+  <ul *ngFor="let user of users">
+    <tr>
       <td>
         <p> {{user.email}} </p>  
         <a routerLink="/users/{{user.id}}/edit">
-          <span class="btn btn-default">Edit</span> 
+          <button type="submit" class="btn btn-info">Edit</button> 
         </a>
-        <p> {{user.id}} </p>
-        <delete-user-btn user="user">
-        </delete-user-btn>
+        <userDeleteBtn [user]="user" [parent]="parent"></userDeleteBtn>
       </td>
     </tr>
   </ul>
-
   `
 })
 export class IndexUserSection {
-  user;
-  users;
+  public users;
+  public parent;
 
   constructor(private http: HttpClient) {
+    this.fetchData(http);
+    this.parent = this;
+  }
+
+  fetchData(http: HttpClient) {
     http.get('users.json')
-      .subscribe(res => {this.user = res[0]; this.users = res});
-      // deletebtn.useremail = users[0].email;
+      .subscribe(res => {
+          this.users = res;
+      });
   }
 }

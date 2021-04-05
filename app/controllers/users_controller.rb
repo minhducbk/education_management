@@ -29,5 +29,7 @@ class UsersController < ApplicationController
   end
 
   def delete
+    binding.pry
+    User.find_by(id: params[:id]).&destroy!
   end
 end
