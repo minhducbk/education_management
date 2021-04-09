@@ -8,19 +8,18 @@ class ApplicationController < ActionController::Base
     cookies["XSRF-TOKEN"] = form_authenticity_token if protect_against_forgery?
   end
 
-
   # CanCan - pass params in to Ability
   def current_ability
     if current_user && (current_user.is_a? User)
       @current_ability ||= Abilities::Ability.new(current_user)
     else
-      binding.pry
       render json: {}, status: :bad_request
     end
   end
 
   protected
+
   def verified_request?
-    super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
+    super || valid_authenticity_token?(session, request.headers["X-XSRF-TOKEN"])
   end
 end

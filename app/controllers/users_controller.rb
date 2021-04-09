@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource except: :create
-  
+
   def create
   end
 
@@ -28,8 +28,11 @@ class UsersController < ApplicationController
   def update
   end
 
-  def delete
-    binding.pry
-    User.find_by(id: params[:id]).&destroy!
+  def destroy
+    User.find_by(id: params[:id])&.delete
+    respond_to do |format|
+      format.html
+      format.json { render head :ok }
+    end
   end
 end

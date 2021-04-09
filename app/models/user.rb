@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :user_sessions
 
+  # default_scope -> { where(deleted: false) }
+
   self.inheritance_column = :role
 
   def self.roles
@@ -17,6 +19,7 @@ class User < ApplicationRecord
   def teacher?
     is_a? Teacher
   end
+
   def student?
     is_a? Student
   end
