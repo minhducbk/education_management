@@ -5,9 +5,9 @@ import { User }              from "../../models/user";
 import { Location }          from "@angular/common";
 
 @Component({
-  selector: "user-new-section",
+  selector: "usernewsection",
   template: `
-    <div *ngIf="user">
+    <div>
       <h2>New user</h2>
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
         <input name="email" formControlName="email" />
