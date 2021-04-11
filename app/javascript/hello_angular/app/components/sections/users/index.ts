@@ -1,5 +1,4 @@
 import { Component }     from "@angular/core";
-import { UserDeleteBtn } from "../buttons/delete.user.btn";
 import { HttpClient }    from "@angular/common/http";
 
 @Component({

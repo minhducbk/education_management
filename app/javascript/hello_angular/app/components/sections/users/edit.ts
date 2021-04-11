@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { EditUserButton } from '../buttons/edit.user.btn';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../../models/user';
-import { Location } from '@angular/common';
+import { ActivatedRoute }    from '@angular/router';
+import { HttpClient }        from '@angular/common/http';
+import { User }              from '../../../models/user';
+import { Location }          from '@angular/common';
 
 @Component({
   selector: 'user-edit-section',
