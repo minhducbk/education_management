@@ -6,13 +6,10 @@ class SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    p "888888888888888"
     super
   end
 
-  
   def create
-    p "999999999999999999"
     binding.pry
     self.resource = warden.authenticate!(auth_options)
 
@@ -29,8 +26,6 @@ class SessionsController < Devise::SessionsController
     end
   end
 
- 
-
   # DELETE /resource/sign_out
   def destroy
     super
@@ -40,10 +35,8 @@ class SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password])
   end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:role, :email, :password, :password_confirmation) }
-  end
+  def configure_permitted_parameters; end
 end

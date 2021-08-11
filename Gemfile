@@ -62,5 +62,8 @@ gem 'apipie-rails'
 gem 'sprockets'
 gem 'rack-cors'
 gem 'angularjs-rails'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
+
 
 
