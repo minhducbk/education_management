@@ -6,6 +6,7 @@ import { Component }                                                 from '@angu
   <h1 id="main-content-header">{{title}}</h1>
   <nav>
     <a routerLink="/users" routerLinkActive="active">Users</a>
+    <a routerLink="/users/new" routerLinkActive="active">New User</a>
   </nav>
   <router-outlet></router-outlet>
   `
@@ -14,4 +15,3 @@ import { Component }                                                 from '@angu
 export class AppComponent {
   title = 'Education Management!';
 }
-//  <a routerLink="/users/new" routerLinkActive="active">New User</a>

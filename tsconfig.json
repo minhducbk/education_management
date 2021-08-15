@@ -8,17 +8,11 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-        "*": [
-          "node_modules/*",
-          "app/javascript/*"
-        ],
-        "core-js/es7/reflect": [
-          "node_modules/core-js/proposals/reflect-metadata"
-        ]
+        "*": ["node_modules/*", "app/javascript/*"]
     },
     "sourceMap": true,
     "target": "es5",
-    "isolatedModules": true
+    "noEmit": true
   },
   "exclude": [
     "**/*.spec.ts",

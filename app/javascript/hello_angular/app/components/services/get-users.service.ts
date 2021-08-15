@@ -12,12 +12,8 @@ export class GetUsersService {
     this.httpClient = httpC;
   }
   
-  get_users() {
-    this.httpClient.get("users.json").subscribe((res) => {
-      this.users = res;
-    });
-    debugger;
-    return this.users;
+  get_users(): any {
+    return this.httpClient.get<any>("users.json")
   }
   
 }

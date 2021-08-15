@@ -8,16 +8,18 @@ import { SelectivePreloadingStrategyService }             from "./selective-prel
 import { AppBootstrapModule }                             from "./app-boostrap.module";
 import { BrowserModule }                                  from "@angular/platform-browser";
 import { HttpClientModule }                               from "@angular/common/http";
+import { NewUserSection }                                 from "./components/sections/users/new";
+import { EditUserSection }                                from "./components/sections/users/edit";
 
 const appRoutes: Routes = [
-  // { path: 'users/:id/edit', component: EditUserSection },
+  { path: 'users/:id/edit', component: EditUserSection },
   { path: 'users', component: IndexUserSection },
-  // { path: 'users/new', component: NewUserSection },
+  { path: 'users/new', component: NewUserSection },
   { path: '', redirectTo: 'users', pathMatch: 'full' },
 ];
 
 @NgModule({
-  declarations: [IndexUserSection],
+  declarations: [],
   imports: [
     RouterModule.forRoot(appRoutes,
       {
@@ -29,7 +31,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }, GetUsersService],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
 	exports: [ RouterModule],
 })
 export class AppRoutingModule {}

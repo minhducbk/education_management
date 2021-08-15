@@ -1,14 +1,16 @@
 import { Component }                                                                 from "@angular/core";
 import { GetUsersService }                                                           from "../../services/get-users.service";
 
-
 @Component({
   selector: "indexusersection",
   template: `<h1>Users#index ANGULAR</h1>
     <ul *ngFor="let user of users">
       <tr>
         <td>
-          <p>{{ user.email }}</p>
+          <span>{{ user.id }}  </span>
+        </td>
+        <td >
+          <span class="ml-2">{{ user.email }}</span>
         </td>
       </tr>
     </ul> `,
@@ -19,8 +21,7 @@ export class IndexUserSection {
 
   constructor(private getUsersService: GetUsersService) {
     this.parent = this;
-    this.users = this.getUsersService.get_users();
-    debugger
+    this.getUsersService.get_users().subscribe(response => (this.users = response));
   }
 }
 //          <a routerLink="/users/{{ user.id }}/edit">
