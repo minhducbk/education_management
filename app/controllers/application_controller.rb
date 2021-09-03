@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # after_action :set_csrf_cookie_for_ng
+  after_action :set_csrf_cookie_for_ng
 
   # protect_from_forgery with: :exception
   protect_from_forgery with: :null_session

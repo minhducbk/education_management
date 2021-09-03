@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { User }       from '../../models/user'
 
 @Injectable({
 	providedIn: "root",
@@ -12,8 +15,8 @@ export class GetUsersService {
     this.httpClient = httpC;
   }
   
-  get_users(): any {
-    return this.httpClient.get<any>("users.json")
+  get_users(): Observable<User[]> {
+    return this.httpClient.get<User[]>("users.json")
   }
   
 }

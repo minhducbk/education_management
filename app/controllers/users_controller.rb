@@ -5,17 +5,10 @@ class UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    if user.errors.any?
-      payload = { errors: user.errors.errors.map(&:full_message).join }
-      status = :bad_request
-    else
-      p 'User create!'
-      payload = {
-        status: 200
-      }
-      status = :ok
-    end
-    render json: payload, status: status
+    status = user.errors.any? ? :bad_request : :ok
+    payload = { status: status, error_message: user.errors.full_messages.to_sentence }
+
+    render json: payload
   end
 
   def show
@@ -35,7 +28,7 @@ class UsersController < ApplicationController
     @users = User.accessible_by(current_ability)
     respond_to do |format|
       format.html
-      format.json { render json: @users }
+      format.json { render json: @users.to_json }
     end
   end
 
@@ -43,10 +36,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find_by(id: params[:id])&.delete
-    respond_to do |format|
-      format.html
-      format.json { render head :ok }
-    end
+    render json: { head: :ok }
   end
 
   private

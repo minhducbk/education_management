@@ -16,7 +16,8 @@ export class UserDeleteBtn {
   @Input() parent;
   httpClient;
 
-  constructor() {
+  constructor(private httpC: HttpClient) {
+    this.httpClient = httpC
   }
 
   deleteUser() {
@@ -28,11 +29,11 @@ export class UserDeleteBtn {
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error("An error occurred:", error.error.message);
+      console.log("An error occurred:", error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      console.error(
+      console.log(
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
     }

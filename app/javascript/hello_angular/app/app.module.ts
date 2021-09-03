@@ -8,10 +8,15 @@ import { AppBootstrapModule }                             from './app-boostrap.m
 import { IndexUserSection }                               from './components/sections/users';
 import { EditUserSection }                                from './components/sections/users/edit';
 import { NewUserSection }                                 from './components/sections/users/new';
+import { UserDeleteBtn }                                  from './components/buttons/delete_user';
 
 @NgModule({
   declarations: [
-    AppComponent, IndexUserSection, EditUserSection, NewUserSection
+    AppComponent,
+    IndexUserSection,
+    EditUserSection,
+    NewUserSection,
+    UserDeleteBtn,
   ],
   imports: [
 		HttpClientModule,

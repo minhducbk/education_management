@@ -1,14 +1,21 @@
-import { Component, OnInit }      from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient }             from "@angular/common/http";
-import { Location }               from "@angular/common";
-import { FormGroup }              from "@angular/forms";
+import { Component }                                                                          from "@angular/core";
+import {  Router }                                                                            from "@angular/router";
+import { HttpClient, HttpErrorResponse }                                                      from "@angular/common/http";
+import { Location }                                                                           from "@angular/common";
+import { FormGroup }                                                                          from "@angular/forms";
+import { catchError }                                                                         from "rxjs/operators";
+import { throwError }                                                                         from "rxjs";
+import { UserResponse }                                                                       from '../../../models/api_responses/user_response';
+import { CreateUserService }                                                                  from "hello_angular/app/services/user/new_user_service";
 
 @Component({
   selector: "usernewsection",
   template: `
     <div>
       <h2>New user</h2>
+      <div class="alert alert-danger" *ngIf="error_message">
+        <div>{{error_message}}</div>
+      </div>
       <form #newuser="ngForm" (ngSubmit)="onSubmit(newuser.value)">
         <div class="form-group">
           <label for="email">Email</label>
@@ -118,32 +125,25 @@ import { FormGroup }              from "@angular/forms";
 })
 export class NewUserSection {
   newuserform;
-  router;
+  error_message;
   private location: Location;
   private http: HttpClient;
 
-  constructor(private httpC: HttpClient, private router: Router) {
+  constructor(private create_user_service: CreateUserService, private router: Router) {
     this.newuserform = new FormGroup({});
-    this.http = httpC;
-    this.router = router;
   }
 
   onSubmit(value: any) {
-    this.http
-      .post(
-        "http://localhost:3000/users/create",
-        { user: value },
-        { responseType: "text" as "json" }
-      )
-      .subscribe({
-        next: (data) => {
-          console.error("XXXXXXXXXXXX ", this);
-          console.info("YYYYYYYYYYYY ", this);
-          this.router.navigate([""]);
-        },
-        error: (error) => {
-          console.error("There was an error!", error);
-        },
+    this.create_user_service
+      .create_user(value)
+      .subscribe(
+        data => {
+          let parsed_data = Object.assign(new UserResponse(), data)
+          if (parsed_data.status == 'ok') {
+            this.router.navigate([''])
+          } else {
+            this.error_message = parsed_data.error_message
+          }
       });
   }
 
